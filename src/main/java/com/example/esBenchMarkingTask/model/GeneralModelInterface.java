@@ -1,14 +1,15 @@
 package com.example.esBenchMarkingTask.model;
 
-
 import org.elasticsearch.common.geo.GeoPoint;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public interface GeneralIndexModel {
-    void setLocation(GeoPoint geoPoint);
+public interface GeneralModelInterface {
     void setId(String format);
-    void setTileIds(List<String> tileIds);
+
+    void setLocation(GeoPoint geoPoint);
+
+    void setTileIds(List<String> calculateTilds);
 }

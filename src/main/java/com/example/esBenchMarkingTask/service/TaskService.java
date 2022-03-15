@@ -30,11 +30,11 @@ public class TaskService {
 
     public void createIndex(String indexingType) {
         switch(indexingType){
-            case "term": repoTermQuery.saveAll((List<TermQueryTask>)util.getListOfDocuments());
+            case "term":repoTermQuery.saveAll(util.getTermQueryTask());
             break;
-            case "geo_shape":repoGeoShapeQuery.saveAll((List<GeoShapeTask>)util.getListOfDocuments());
+            case "geo_shape":repoGeoShapeQuery.saveAll(util.getGeoShapeTask());
             break;
-            case "geo_point":repoGeoPointQuery.saveAll((List<GeoPointTask>)util.getListOfDocuments());
+            case "geo_point":repoGeoPointQuery.saveAll(util.getGeoPointTask());
             break;
         }
     }

@@ -6,8 +6,8 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.List;
 
-@Document(indexName = "test3")
-public class TermQueryTask implements GeneralIndexModel{
+@Document(indexName = "test3termquerys")
+public class TermQueryTask implements GeneralModelInterface{
     @Id
     private String id;
 
@@ -27,7 +27,6 @@ public class TermQueryTask implements GeneralIndexModel{
         return Location;
     }
 
-    @Override
     public void setLocation(GeoPoint location) {
         Location = location;
     }

@@ -1,7 +1,6 @@
 package com.example.esBenchMarkingTask.utils;
 
-import com.example.esBenchMarkingTask.model.GeneralIndexModel;
-import com.example.esBenchMarkingTask.model.ReturnIndexingType;
+import com.example.esBenchMarkingTask.model.*;
 import com.google.common.base.Joiner;
 import org.elasticsearch.common.geo.GeoPoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,32 +13,64 @@ import java.util.Random;
 
 @Component
 public class Util {
-
-    @Autowired
-    private ReturnIndexingType returnIndexingType;
-
-    @Autowired
-    private GeneralIndexModel model;
-
-
-    public int docCount = 10;
+   public int docCount = 10;
     private static final int MAX_ZOOM_LEVELS = 15;
 
 
     private List<String> tileIds;
+    private List<? extends GeneralModelInterface> generalList;
 
-    private List<GeneralIndexModel> listOfDocuments = null;
+    private List<GeoPointTask> geoPointTask;
+    private List<TermQueryTask> termQueryTask;
+    private List<GeoShapeTask> geoShapeTask;
 
-
-
-    public List<?> getListOfDocuments() {
-        if (listOfDocuments == null)
-            setListOfDocuments();
-        return listOfDocuments;
+    public List<? extends GeneralModelInterface> getGeneralList() {
+        return generalList;
     }
 
-    public void setListOfDocuments() {
-        this.listOfDocuments = generateListOfDocuments();
+    public void setGeneralList() {
+        generateListOfDocuments();
+    }
+
+    public void setGeneralList(List<GeneralModelInterface> generalList) {
+        this.generalList = generalList;
+    }
+
+    public List<GeoPointTask> getGeoPointTask() {
+        if(geoPointTask == null)
+            setGeoPointTask();
+        return geoPointTask;
+    }
+
+    public List<TermQueryTask> getTermQueryTask() {
+        if(termQueryTask==null)
+            setTermQueryTask();
+        return termQueryTask;
+    }
+
+    public List<GeoShapeTask> getGeoShapeTask() {
+        if(geoShapeTask==null)
+            setGeoShapeTask();
+        return geoShapeTask;
+    }
+
+
+    public void setGeoPointTask() {
+        if(generalList == null)
+            setGeneralList();
+        this.geoPointTask = (List<GeoPointTask>) generalList;
+    }
+
+    public void setTermQueryTask() {
+        if(generalList == null)
+            setGeneralList();
+        this.termQueryTask = (List<TermQueryTask>) generalList;
+    }
+
+    public void setGeoShapeTask() {
+        if(generalList == null)
+            setGeneralList();
+        this.geoShapeTask = (List<GeoShapeTask>) generalList;
     }
 
     public List<String> calculateTilds(Double lat, Double lan) {
@@ -77,9 +108,10 @@ public class Util {
     }
 
 
-    public List<GeneralIndexModel> generateListOfDocuments() {
-        List<GeneralIndexModel> listModel = new ArrayList<>();
+    public void generateListOfDocuments() {
+        List<GeneralModelInterface> listModel = new ArrayList<>();
         for (int i = 0; i < docCount; i++) {
+            GeoPointTask model = new GeoPointTask();
             model.setId(String.format("%d", i));
             List<Double> coordinates = generateCoordinates();
             GeoPoint geoPoint = new GeoPoint(coordinates.get(0), coordinates.get(1));
@@ -87,8 +119,7 @@ public class Util {
             model.setTileIds(calculateTilds(coordinates.get(0), coordinates.get(1)));
             listModel.add(model);
         }
-        return listModel;
+        this.generalList = listModel;
     }
-
 }
 

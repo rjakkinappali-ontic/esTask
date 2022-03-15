@@ -1,6 +1,5 @@
 package com.example.esBenchMarkingTask.repository;
 
-import com.example.esBenchMarkingTask.model.GeneralIndexModel;
 import com.example.esBenchMarkingTask.model.TermQueryTask;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
