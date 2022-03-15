@@ -13,8 +13,20 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//spring stuff
+	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch:2.6.4'
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.6.4'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.4'
+	implementation group: 'org.springframework.data', name: 'spring-data-elasticsearch', version: '4.3.2'
+
+	//es stuff
+	implementation group: 'org.locationtech.spatial4j', name: 'spatial4j', version: '0.8'
+	implementation group: 'org.locationtech.jts', name: 'jts-core', version: '1.18.2'
+
+	//utils
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+	implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
+	implementation group: 'com.alibaba', name: 'fastjson', version: '1.1.15'
 }
 
 tasks.named('test') {
