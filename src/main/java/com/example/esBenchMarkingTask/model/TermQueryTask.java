@@ -1,18 +1,17 @@
 package com.example.esBenchMarkingTask.model;
 
+import org.elasticsearch.common.geo.GeoPoint;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.List;
 
-@Document(indexName = "termquery")
-public class Tasks implements GeneralIndexModel{
+@Document(indexName = "test3")
+public class TermQueryTask implements GeneralIndexModel{
     @Id
     private String id;
 
-    private String LocationX;
-
-    private String LocationY;
+    private GeoPoint Location;
 
     private List<String> tileIds;
 
@@ -24,20 +23,13 @@ public class Tasks implements GeneralIndexModel{
         this.id = id;
     }
 
-    public String getLocationX() {
-        return LocationX;
+    public GeoPoint getLocation() {
+        return Location;
     }
 
-    public void setLocationX(String locationX) {
-        LocationX = locationX;
-    }
-
-    public String getLocationY() {
-        return LocationY;
-    }
-
-    public void setLocationY(String locationY) {
-        LocationY = locationY;
+    @Override
+    public void setLocation(GeoPoint location) {
+        Location = location;
     }
 
     public List<String> getTileIds() {
@@ -50,10 +42,9 @@ public class Tasks implements GeneralIndexModel{
 
     @Override
     public String toString() {
-        return "Tasks{" +
+        return "TermQueryTask{" +
                 "id='" + id + '\'' +
-                ", LocationX='" + LocationX + '\'' +
-                ", LocationY='" + LocationY + '\'' +
+                ", Location=" + Location +
                 ", tileIds=" + tileIds +
                 '}';
     }

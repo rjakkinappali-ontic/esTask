@@ -7,7 +7,7 @@ import org.springframework.data.elasticsearch.annotations.GeoPointField;
 
 import java.util.List;
 
-@Document(indexName = "geoshape")
+@Document(indexName = "test2")
 public class GeoShapeTask implements GeneralIndexModel{
     @Id
     private String id;
