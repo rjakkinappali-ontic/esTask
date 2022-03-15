@@ -12,16 +12,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
 @Component
 public class Util {
-    public static final int docCount = 10;
+
+    public int docCount = 10;
     private static final int MAX_ZOOM_LEVELS = 15;
     @Autowired
     private ReturnIndexingType returnIndexingType;
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private GeneralIndexModel model;
     private List<String> tileIds;
 
+    private List<?> listOfDocuments = null;
+
+    public List<?> getListOfDocuments() {
+        if (listOfDocuments == null)
+            setListOfDocuments();
+        return listOfDocuments;
+    }
+
+    public void setListOfDocuments() {
+        this.listOfDocuments = generateListOfDocuments();
+    }
 
     public List<String> calculateTilds(Double lat, Double lan) {
         if (lat == null || lan == null) {
@@ -57,24 +72,19 @@ public class Util {
         return coordinates;
     }
 
-    public void createRepo(String indexingType) {
-        List<GeneralIndexModel> modelList = new ArrayList<>();
+
+    public List<GeneralIndexModel> generateListOfDocuments() {
+        List<GeneralIndexModel> listModel = new ArrayList<>();
         for (int i = 0; i < docCount; i++) {
-            GeneralIndexModel model = returnIndexingType.getObject(indexingType);
+            model.setId(String.format("%d", i));
             List<Double> coordinates = generateCoordinates();
-            List<String> tileIds = calculateTilds(coordinates.get(0), coordinates.get(1));
             GeoPoint geoPoint = new GeoPoint(coordinates.get(0), coordinates.get(1));
             model.setLocation(geoPoint);
-            model.setId(String.format("%d", i));
-            model.setTileIds(tileIds);
-            modelList.add(model);
-            if (i % 100 == 0) {
-                taskService.createIndex(modelList);
-                modelList.clear();
-            }
+            model.setTileIds(calculateTilds(coordinates.get(0), coordinates.get(1)));
+            listModel.add(model);
         }
-        taskService.createIndex(modelList);
-        modelList.clear();
+        return listModel;
     }
+
 }
 
