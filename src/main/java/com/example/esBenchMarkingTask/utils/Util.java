@@ -2,7 +2,6 @@ package com.example.esBenchMarkingTask.utils;
 
 import com.example.esBenchMarkingTask.model.GeneralIndexModel;
 import com.example.esBenchMarkingTask.model.ReturnIndexingType;
-import com.example.esBenchMarkingTask.service.TaskService;
 import com.google.common.base.Joiner;
 import org.elasticsearch.common.geo.GeoPoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +15,22 @@ import java.util.Random;
 @Component
 public class Util {
 
-    public int docCount = 10;
-    private static final int MAX_ZOOM_LEVELS = 15;
     @Autowired
     private ReturnIndexingType returnIndexingType;
-    @Autowired
-    private TaskService taskService;
+
     @Autowired
     private GeneralIndexModel model;
+
+
+    public int docCount = 10;
+    private static final int MAX_ZOOM_LEVELS = 15;
+
+
     private List<String> tileIds;
 
-    private List<?> listOfDocuments = null;
+    private List<GeneralIndexModel> listOfDocuments = null;
+
+
 
     public List<?> getListOfDocuments() {
         if (listOfDocuments == null)
