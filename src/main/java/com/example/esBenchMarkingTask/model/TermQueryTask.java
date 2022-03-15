@@ -7,7 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import java.util.List;
 
 @Document(indexName = "test3termquerys")
-public class TermQueryTask implements GeneralModelInterface{
+public class TermQueryTask implements GeneralModelInterface {
     @Id
     private String id;
 

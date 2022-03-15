@@ -1,6 +1,5 @@
 package com.example.esBenchMarkingTask.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.esBenchMarkingTask.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class Controller {
@@ -27,6 +24,6 @@ public class Controller {
         long startTime = System.currentTimeMillis();
         taskService.handleQuery(query);
         long end = System.currentTimeMillis();
-        return end-startTime;
+        return end - startTime;
     }
 }

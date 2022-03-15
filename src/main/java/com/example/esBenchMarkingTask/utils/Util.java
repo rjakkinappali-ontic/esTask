@@ -1,9 +1,11 @@
 package com.example.esBenchMarkingTask.utils;
 
-import com.example.esBenchMarkingTask.model.*;
+import com.example.esBenchMarkingTask.model.GeneralModelInterface;
+import com.example.esBenchMarkingTask.model.GeoPointTask;
+import com.example.esBenchMarkingTask.model.GeoShapeTask;
+import com.example.esBenchMarkingTask.model.TermQueryTask;
 import com.google.common.base.Joiner;
 import org.elasticsearch.common.geo.GeoPoint;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,10 +15,8 @@ import java.util.Random;
 
 @Component
 public class Util {
-   public int docCount = 10;
     private static final int MAX_ZOOM_LEVELS = 15;
-
-
+    public int docCount = 10;
     private List<String> tileIds;
     private List<? extends GeneralModelInterface> generalList;
 
@@ -28,47 +28,47 @@ public class Util {
         return generalList;
     }
 
-    public void setGeneralList() {
-        generateListOfDocuments();
-    }
-
     public void setGeneralList(List<GeneralModelInterface> generalList) {
         this.generalList = generalList;
     }
 
+    public void setGeneralList() {
+        generateListOfDocuments();
+    }
+
     public List<GeoPointTask> getGeoPointTask() {
-        if(geoPointTask == null)
+        if (geoPointTask == null)
             setGeoPointTask();
         return geoPointTask;
     }
 
     public List<TermQueryTask> getTermQueryTask() {
-        if(termQueryTask==null)
+        if (termQueryTask == null)
             setTermQueryTask();
         return termQueryTask;
     }
 
     public List<GeoShapeTask> getGeoShapeTask() {
-        if(geoShapeTask==null)
+        if (geoShapeTask == null)
             setGeoShapeTask();
         return geoShapeTask;
     }
 
 
     public void setGeoPointTask() {
-        if(generalList == null)
+        if (generalList == null)
             setGeneralList();
         this.geoPointTask = (List<GeoPointTask>) generalList;
     }
 
     public void setTermQueryTask() {
-        if(generalList == null)
+        if (generalList == null)
             setGeneralList();
         this.termQueryTask = (List<TermQueryTask>) generalList;
     }
 
     public void setGeoShapeTask() {
-        if(generalList == null)
+        if (generalList == null)
             setGeneralList();
         this.geoShapeTask = (List<GeoShapeTask>) generalList;
     }

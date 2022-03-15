@@ -8,7 +8,7 @@ import org.springframework.data.elasticsearch.annotations.GeoPointField;
 import java.util.List;
 
 @Document(indexName = "test2geoshapes")
-public class GeoShapeTask implements GeneralModelInterface{
+public class GeoShapeTask implements GeneralModelInterface {
     @Id
     private String id;
 
