@@ -102,8 +102,8 @@ public class TaskService {
             coordinates.add(locationArray.getJSONObject(i).getDouble("X"));
             coordinates.add(locationArray.getJSONObject(i).getDouble("Y"));
         }
-        Coordinate coordinateTopLeft = new Coordinate(coordinates.get(0), coordinates.get(1));
-        Coordinate coordinateBottomRight = new Coordinate(coordinates.get(2), coordinates.get(3));
+        Coordinate coordinateTopLeft = new Coordinate(coordinates.get(1), coordinates.get(0));
+        Coordinate coordinateBottomRight = new Coordinate(coordinates.get(3), coordinates.get(2));
         EnvelopeBuilder shape = new EnvelopeBuilder(coordinateTopLeft, coordinateBottomRight);
         SearchSourceBuilder searchSourceBuilder= new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.geoWithinQuery("Location",shape));
