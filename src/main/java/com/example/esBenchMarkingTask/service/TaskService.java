@@ -82,7 +82,7 @@ public class TaskService {
         gdqb.distance(20, DistanceUnit.KILOMETERS);
         searchSourceBuilder.query(gdqb);
         SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices("geopoint");
+        searchRequest.indices("test1geopoints");
         searchRequest.source(searchSourceBuilder);
         ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo("localhost:9200").build();
         RestHighLevelClient client = RestClients.create(clientConfiguration).rest();
@@ -108,7 +108,7 @@ public class TaskService {
         SearchSourceBuilder searchSourceBuilder= new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.geoWithinQuery("Location",shape));
         SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices("geoshape");
+        searchRequest.indices("test2geoshapes");
         searchRequest.source(searchSourceBuilder);
         ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo("localhost:9200").build();
         RestHighLevelClient client = RestClients.create(clientConfiguration).rest();
@@ -127,7 +127,7 @@ public class TaskService {
         searchSourceBuilder.size(5);
         searchSourceBuilder.query(QueryBuilders.termQuery("tileIds", tileId));
         SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices("termquery");
+        searchRequest.indices("test3termquerys");
         searchRequest.source(searchSourceBuilder);
         ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo("localhost:9200").build();
         RestHighLevelClient client = RestClients.create(clientConfiguration).rest();
