@@ -30,6 +30,10 @@ import java.util.List;
 @Service
 public class TaskService {
 
+    public static final String HOST_AND_PORT = "localhost:9200";
+    public static final String geoPointsIndex = "test1geopoints";
+    public static final String geoShapeIndex = "test2geoshapes";
+    public static final String termQueryIndex = "test3termquerys";
     @Autowired
     private RepoTermQuery repoTermQuery;
 
@@ -85,9 +89,9 @@ public class TaskService {
         gdqb.distance(20, DistanceUnit.KILOMETERS);
         searchSourceBuilder.query(gdqb);
         SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices("test1geopoints");
+        searchRequest.indices(geoPointsIndex);
         searchRequest.source(searchSourceBuilder);
-        ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo("localhost:9200").build();
+        ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo(HOST_AND_PORT).build();
         RestHighLevelClient client = RestClients.create(clientConfiguration).rest();
         SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
         SearchHit[] searchHits = response.getHits().getHits();
@@ -110,9 +114,9 @@ public class TaskService {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.geoWithinQuery("Location", shape));
         SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices("test2geoshapes");
+        searchRequest.indices(geoShapeIndex);
         searchRequest.source(searchSourceBuilder);
-        ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo("localhost:9200").build();
+        ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo(HOST_AND_PORT).build();
         RestHighLevelClient client = RestClients.create(clientConfiguration).rest();
         SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
         SearchHit[] searchHits = response.getHits().getHits();
@@ -128,9 +132,9 @@ public class TaskService {
         searchSourceBuilder.size(5);
         searchSourceBuilder.query(QueryBuilders.termQuery("tileIds", tileId));
         SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices("test3termquerys");
+        searchRequest.indices(termQueryIndex);
         searchRequest.source(searchSourceBuilder);
-        ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo("localhost:9200").build();
+        ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo(HOST_AND_PORT).build();
         RestHighLevelClient client = RestClients.create(clientConfiguration).rest();
         SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
         SearchHit[] searchHits = response.getHits().getHits();
