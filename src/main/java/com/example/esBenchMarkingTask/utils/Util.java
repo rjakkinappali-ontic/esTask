@@ -97,7 +97,7 @@ public class Util {
         );
     }
 
-    private Integer getY(Double i, Double y) {
+    private Object getY(Double i, Double y) {
         return (int) Math.floor(((y + 180) / 360) * Math.pow(2, i));
     }
 
