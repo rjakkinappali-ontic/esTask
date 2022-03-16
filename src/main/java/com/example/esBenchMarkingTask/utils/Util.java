@@ -16,10 +16,10 @@ import java.util.Random;
 @Component
 public class Util {
     public static final double upperBoundLatitude = 85.011;
-    private static final int MAX_ZOOM_LEVELS = 15;
     public static final double lowerBoundLatitude = 85.0511;
     public static final double lowerBoundLongitude = 180.0;
     public static final double upperBoundLongitude = 180.0;
+    private static final int MAX_ZOOM_LEVELS = 15;
     public int docCount = 10;
     private List<String> tileIds;
     private List<? extends GeneralModelInterface> generalList;
@@ -96,6 +96,7 @@ public class Util {
                         Math.pow(2, i)
         );
     }
+
     private Integer getY(Double i, Double y) {
         return (int) Math.floor(((y + 180) / 360) * Math.pow(2, i));
     }
