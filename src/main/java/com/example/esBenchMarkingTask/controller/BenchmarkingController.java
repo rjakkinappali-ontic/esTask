@@ -49,7 +49,7 @@ public class BenchmarkingController {
     @GetMapping("/query")
     public long termQuery(@RequestBody JSONObject query) throws IOException {
         long startTime = System.currentTimeMillis();
-        repositoryService.handleQuery(query);
+        repositoryService.queryHandle(query);
         long end = System.currentTimeMillis();
         return end - startTime;
     }
