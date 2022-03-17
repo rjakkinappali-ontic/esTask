@@ -1,4 +1,4 @@
-package com.example.esBenchMarkingTask.service.query;
+package com.example.esBenchMarkingTask.service.query_service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service that is used to handle Geo_Distance query for indexed of the type GeoPointDoc
+ */
 @Service
 public class GeoDistanceQueryHandler implements  QueryHandler{
 
@@ -26,6 +29,14 @@ public class GeoDistanceQueryHandler implements  QueryHandler{
     public static final String geoPointsIndex = "testing1geopoints";
     public static final int radiusOfSearch = 20;
 
+    /**
+     * <ul>
+     *     <li>This method handle a query and search for all GeoPoints in the "testing1geopoint index that are in a circle of radius of 20Km from a location provided in the JSONObject Location</li>
+     *     <li>This throws IOException because of the search function</li>
+     * </ul>
+     * @param query
+     * @throws IOException
+     */
     @Override
     public void handleQuery(JSONObject query) throws IOException {
         JSONArray locationArray = query.getJSONArray("Location");

@@ -1,4 +1,4 @@
-package com.example.esBenchMarkingTask.service.query;
+package com.example.esBenchMarkingTask.service.query_service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.esBenchMarkingTask.model.QueryType;

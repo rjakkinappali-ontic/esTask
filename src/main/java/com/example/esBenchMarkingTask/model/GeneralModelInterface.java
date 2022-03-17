@@ -6,10 +6,13 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * This is a general model interface, to represent indexes that will be used
+ * Interface to represent a general index that will be used
  */
 @Component
 public interface GeneralModelInterface {
-
+    /**
+     * This is used to set the Id for the document, it has to be unique.
+     * @param id
+     */
     void setId(String id);
 }

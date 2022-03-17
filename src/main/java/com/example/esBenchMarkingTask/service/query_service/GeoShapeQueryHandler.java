@@ -1,4 +1,4 @@
-package com.example.esBenchMarkingTask.service.query;
+package com.example.esBenchMarkingTask.service.query_service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -20,10 +20,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service that is used to handle Geo_Shape query for indexed of the type GeoShapeDoc
+ */
 @Service
 public class GeoShapeQueryHandler implements QueryHandler{
     public static final String hostAndPort = "localhost:9200";
     public static final String geoShapeIndex = "testing2geoshapes";
+    /**
+     * <ul>
+     *     <li>This method handle a query and search for all GeoPoints in the "testing2geoshape index that are in a bounding rectangle enclosed by the bottom right and top left coordinate provided in the JSONObject Location</li>
+     *     <li>This throws IOException because of the search function</li>
+     * </ul>
+     * @param query
+     * @throws IOException
+     */
     @Override
     public void handleQuery(JSONObject query) throws IOException {
         JSONArray locationArray = query.getJSONArray("Location");

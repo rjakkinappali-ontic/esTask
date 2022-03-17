@@ -7,7 +7,7 @@ import org.springframework.data.elasticsearch.annotations.GeoPointField;
 
 import java.util.List;
 /**
- * This a Document to be used for Benchmarking geoshape queries.
+ * Document to be used for Benchmarking geoshape queries.
  * It has the following fields.
  * <ul>
  *     <li><b>String</b>: id</li>
@@ -25,7 +25,7 @@ public class GeoShapeDoc implements ModelWithLocation {
 
     private List<String> tileIds;
     /**
-     * This is used to return the object of type GeoShapeDoc in type String
+     * Method to return the object of type GeoShapeDoc in type String
      * @return
      */
     @Override
@@ -37,26 +37,50 @@ public class GeoShapeDoc implements ModelWithLocation {
                 '}';
     }
 
+    /**
+     * Method to get the id of the GeoShape Document
+     * @return
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Method to set the id of the GeoShape Document
+     * @param id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Method to get the location of a GeoShape Document. Returns a type GeoPoint
+     * @return
+     */
     public GeoPoint getLocation() {
         return location;
     }
 
+    /**
+     * Method to set the location of a GeoShape Document.
+     * @param location
+     */
     public void setLocation(GeoPoint location) {
         this.location = location;
     }
 
+    /**
+     * Method to get the tile ids of a GeoShape Document.
+     * @return
+     */
     public List<String> getTileIds() {
         return tileIds;
     }
 
+    /**
+     * Method to set the tile ids of a GeoShape Document.
+     * @param tileIds
+     */
     public void setTileIds(List<String> tileIds) {
         this.tileIds = tileIds;
     }

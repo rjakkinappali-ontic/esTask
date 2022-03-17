@@ -8,7 +8,7 @@ import org.springframework.data.elasticsearch.annotations.GeoPointField;
 import java.util.List;
 
 /**
- * This a Document to be used for Benchmarking geopoint queries.
+ * Document to be used for Benchmarking geopoint queries.
  * It has the following fields.
  * <ul>
  *     <li><b>String</b>: id</li>
@@ -27,7 +27,7 @@ public class GeoPointDoc implements ModelWithLocation {
     private List<String> tileIds;
 
     /**
-     * This is used to return the object of type GeoPointDoc in type String
+     * Method used to return the object of type GeoPointDoc in type String
      * @return
      */
     @Override
@@ -39,26 +39,50 @@ public class GeoPointDoc implements ModelWithLocation {
                 '}';
     }
 
+    /**
+     * Method used to get the id of a GeoPoint Document
+     * @return
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Method used to set the id of a GeoPoint Document
+     * @param id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Method used to get the coordinates of the GeoPoint Document
+     * @return
+     */
     public GeoPoint getLocation() {
         return location;
     }
 
+    /**
+     * Method used to set the coordinates of the GeoPoint Document
+     * @param location
+     */
     public void setLocation(GeoPoint location) {
         this.location = location;
     }
 
+    /**
+     * Method to get the list of tileIds of the GeoPoint Document
+     * @return
+     */
     public List<String> getTileIds() {
         return tileIds;
     }
 
+    /**
+     * Method to set the list of tileIds of the GeoPoint Document
+     * @param tileIds
+     */
     public void setTileIds(List<String> tileIds) {
         this.tileIds = tileIds;
     }

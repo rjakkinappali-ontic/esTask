@@ -1,34 +1,20 @@
 package com.example.esBenchMarkingTask.service;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.esBenchMarkingTask.model.IndexingType;
 import com.example.esBenchMarkingTask.model.QueryType;
-import com.example.esBenchMarkingTask.service.indexing.IndexingTypeHandler;
-import com.example.esBenchMarkingTask.service.indexing.IndexingTypeHandlerRegistry;
-import com.example.esBenchMarkingTask.service.query.QueryHandler;
-import com.example.esBenchMarkingTask.service.query.QueryTypeRegistry;
-import org.elasticsearch.action.search.SearchRequest;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.common.geo.builders.EnvelopeBuilder;
-import org.elasticsearch.common.unit.DistanceUnit;
-import org.elasticsearch.index.query.GeoDistanceQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.locationtech.jts.geom.Coordinate;
+import com.example.esBenchMarkingTask.service.indexing_service.IndexingTypeHandler;
+import com.example.esBenchMarkingTask.service.indexing_service.IndexingTypeHandlerRegistry;
+import com.example.esBenchMarkingTask.service.query_service.QueryHandler;
+import com.example.esBenchMarkingTask.service.query_service.QueryTypeRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.elasticsearch.client.ClientConfiguration;
-import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-
+/**
+ * The main service that connects to both indexing_sevices and query_services
+ */
 @Service
 public class RepositoryService {
 

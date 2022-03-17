@@ -5,11 +5,19 @@ import org.elasticsearch.common.geo.GeoPoint;
 import java.util.List;
 
 /**
- * This is an interface that is to be used by indexes that have to set location and set tile ids, and have fields called location and tile ids
+ * Interface that is to be used by indexes that have to set location and set tile ids, and have fields called location and tile ids
  */
 public interface ModelWithLocation extends GeneralModelInterface {
 
+    /**
+     * Method that is to be used by classes for setting locations of type GeoPoint
+     * @param geoPoint
+     */
     void setLocation(GeoPoint geoPoint);
 
-    void setTileIds(List<String> calculateTilds);
+    /**
+     * Method that is to be used by classes for setting Tile Ids (plural) of type String
+     * @param tileIds
+     */
+    void setTileIds(List<String> tileIds);
 }

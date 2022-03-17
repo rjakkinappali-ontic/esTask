@@ -1,4 +1,4 @@
-package com.example.esBenchMarkingTask.service.indexing;
+package com.example.esBenchMarkingTask.service.indexing_service;
 
 import com.example.esBenchMarkingTask.model.IndexingType;
 

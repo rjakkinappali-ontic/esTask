@@ -10,21 +10,11 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * This is a util class, that is used to side tasks that are not that important.
- * The methods that it has.
- * <ul>
- *     <li>getGenerallist</li>
- *     <li>setGeneralList</li>
- *     <li>getGeoPointDocs</li>
- *     <li>setGeoPointDocs</li>
- *     <li>getGeoShapeDocs</li>
- *     <li>setGeoShapeDocs</li>
- *     <li>getTermQueryDocs</li>
- *     <li>setTermQueryDocs</li>
- * </ul>
+ * This is a util class, that is used to side tasks that perform auxilary tasks.
+ *
  */
 @Component
-public class Util {
+public class AuxiliaryFunctions {
     public static final double upperBoundLatitude = 85.011;
     public static final double lowerBoundLatitude = 85.0511;
     public static final double lowerBoundLongitude = 180.0;

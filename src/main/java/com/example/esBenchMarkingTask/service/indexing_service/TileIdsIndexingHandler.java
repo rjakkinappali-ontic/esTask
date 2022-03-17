@@ -1,13 +1,12 @@
-package com.example.esBenchMarkingTask.service.indexing;
+package com.example.esBenchMarkingTask.service.indexing_service;
 
 import com.example.esBenchMarkingTask.model.IndexingType;
 import com.example.esBenchMarkingTask.repository.RepoTermQuery;
-import com.example.esBenchMarkingTask.service.indexing.IndexingTypeHandler;
-import com.example.esBenchMarkingTask.utils.Util;
+import com.example.esBenchMarkingTask.utils.AuxiliaryFunctions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**
- * This is a service that performs wireDocs on TermQueryDoc.
+ * Service that creates and indexes TermQueryDoc.
  * It has the following methods.
  * <ul>
  *     <li>indexDocs</li>
@@ -21,7 +20,7 @@ public class TileIdsIndexingHandler implements IndexingTypeHandler {
     private RepoTermQuery repoTermQuery;
 
     @Autowired
-    private Util util;
+    private AuxiliaryFunctions util;
 
     /**
      * This is used to write the Index documents into the index.
