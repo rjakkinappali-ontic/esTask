@@ -7,21 +7,34 @@ import org.springframework.data.elasticsearch.annotations.GeoPointField;
 
 import java.util.List;
 
-@Document(indexName = "test1geopoints")
-public class GeoPointTask implements GeneralModelInterface {
+/**
+ * This a Document to be used for Benchmarking geopoint queries.
+ * It has the following fields.
+ * <ul>
+ *     <li><b>String</b>: id</li>
+ *     <li><b>GeoPoint</b>: Location</li>
+ *     <li><b>List < String ></b>: TileIds</li>
+ * </ul>
+ */
+@Document(indexName = "testing1geopoints")
+public class GeoPointDoc implements ModelWithLocation {
     @Id
     private String id;
 
     @GeoPointField
-    private GeoPoint Location;
+    private GeoPoint location;
 
     private List<String> tileIds;
 
+    /**
+     * This is used to return the object of type GeoPointDoc in type String
+     * @return
+     */
     @Override
     public String toString() {
         return "taskData{" +
                 "id='" + id + '\'' +
-                ", Location=" + Location.toString() +
+                ", Location=" + location.toString() +
                 ", tileIds=" + tileIds +
                 '}';
     }
@@ -35,11 +48,11 @@ public class GeoPointTask implements GeneralModelInterface {
     }
 
     public GeoPoint getLocation() {
-        return Location;
+        return location;
     }
 
     public void setLocation(GeoPoint location) {
-        Location = location;
+        this.location = location;
     }
 
     public List<String> getTileIds() {

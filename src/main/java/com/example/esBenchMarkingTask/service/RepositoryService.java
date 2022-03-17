@@ -2,10 +2,10 @@ package com.example.esBenchMarkingTask.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.example.esBenchMarkingTask.repository.RepoGeoPointQuery;
-import com.example.esBenchMarkingTask.repository.RepoGeoShapeQuery;
-import com.example.esBenchMarkingTask.repository.RepoTermQuery;
-import com.example.esBenchMarkingTask.utils.Util;
+import com.example.esBenchMarkingTask.model.IndexingType;
+import com.example.esBenchMarkingTask.model.QueryType;
+import com.example.esBenchMarkingTask.service.indexing.IndexingTypeHandler;
+import com.example.esBenchMarkingTask.service.indexing.IndexingTypeHandlerRegistry;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -28,40 +28,33 @@ import java.util.List;
 
 
 @Service
-public class TaskService {
+public class RepositoryService {
 
     public static final String hostAndPort = "localhost:9200";
     public static final String geoPointsIndex = "test1geopoints";
     public static final String geoShapeIndex = "test2geoshapes";
     public static final String termQueryIndex = "test3termquerys";
     public static final int radiusOfSearch = 20;
-    @Autowired
-    private RepoTermQuery repoTermQuery;
+
 
     @Autowired
-    private RepoGeoPointQuery repoGeoPointQuery;
+    private IndexingTypeHandlerRegistry registry;
 
-    @Autowired
-    private RepoGeoShapeQuery repoGeoShapeQuery;
 
-    @Autowired
-    private Util util;
-
-    public void createIndex(String indexingType) {
-        switch (indexingType) {
-            case "term":
-                repoTermQuery.saveAll(util.getTermQueryTask());
-                break;
-            case "geo_shape":
-                repoGeoShapeQuery.saveAll(util.getGeoShapeTask());
-                break;
-            case "geo_point":
-                repoGeoPointQuery.saveAll(util.getGeoPointTask());
-                break;
-        }
+    /**
+     * This is the function that is used to write the documents into the mentioned index
+     * @param indexingType
+     */
+    public void writeDocs(String indexingType) {
+        IndexingType indexingTypeEnum = IndexingType.valueOf(indexingType);
+        IndexingTypeHandler indexingTypeHandler = registry.getIndexingTypeHandler(indexingTypeEnum);
+        indexingTypeHandler.indexDocs();
     }
 
-
+//    public void queryHandle(JSONObject query){
+//        QueryType queryTypeEnum = QueryType.valueOf(query.getString("type"));
+//        QueryTyp
+//    }
     public void handleQuery(JSONObject query) throws IOException {
         String queryType = query.getString("type");
         switch (queryType) {

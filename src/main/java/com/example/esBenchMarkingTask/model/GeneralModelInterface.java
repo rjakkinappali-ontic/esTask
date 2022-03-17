@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * This is a general model interface, to represent indexes that will be used
+ */
 @Component
 public interface GeneralModelInterface {
-    void setId(String format);
 
-    void setLocation(GeoPoint geoPoint);
-
-    void setTileIds(List<String> calculateTilds);
+    void setId(String id);
 }

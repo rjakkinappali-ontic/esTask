@@ -6,22 +6,33 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.GeoPointField;
 
 import java.util.List;
-
-@Document(indexName = "test2geoshapes")
-public class GeoShapeTask implements GeneralModelInterface {
+/**
+ * This a Document to be used for Benchmarking geoshape queries.
+ * It has the following fields.
+ * <ul>
+ *     <li><b>String</b>: id</li>
+ *     <li><b>GeoPoint</b>: Location</li>
+ *     <li><b>List < String ></b>: TileIds</li>
+ * </ul>
+ */
+@Document(indexName = "testing2geoshapes")
+public class GeoShapeDoc implements ModelWithLocation {
     @Id
     private String id;
 
     @GeoPointField
-    private GeoPoint Location;
+    private GeoPoint location;
 
     private List<String> tileIds;
-
+    /**
+     * This is used to return the object of type GeoShapeDoc in type String
+     * @return
+     */
     @Override
     public String toString() {
         return "taskData{" +
                 "id='" + id + '\'' +
-                ", Location=" + Location +
+                ", Location=" + location +
                 ", tileIds=" + tileIds +
                 '}';
     }
@@ -35,11 +46,11 @@ public class GeoShapeTask implements GeneralModelInterface {
     }
 
     public GeoPoint getLocation() {
-        return Location;
+        return location;
     }
 
     public void setLocation(GeoPoint location) {
-        Location = location;
+        this.location = location;
     }
 
     public List<String> getTileIds() {

@@ -5,13 +5,22 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.List;
+/**
+ * This a Document to be used for Benchmarking term queries.
+ * It has the following fields.
+ * <ul>
+ *     <li><b>String</b>: id</li>
+ *     <li><b>GeoPoint</b>: Location</li>
+ *     <li><b>List < String ></b>: TileIds</li>
+ * </ul>
+ */
+@Document(indexName = "testing3termquerys")
+public class TermQueryDoc implements ModelWithLocation {
 
-@Document(indexName = "test3termquerys")
-public class TermQueryTask implements GeneralModelInterface {
     @Id
     private String id;
 
-    private GeoPoint Location;
+    private GeoPoint location;
 
     private List<String> tileIds;
 
@@ -24,11 +33,11 @@ public class TermQueryTask implements GeneralModelInterface {
     }
 
     public GeoPoint getLocation() {
-        return Location;
+        return location;
     }
 
     public void setLocation(GeoPoint location) {
-        Location = location;
+        this.location = location;
     }
 
     public List<String> getTileIds() {
@@ -38,12 +47,15 @@ public class TermQueryTask implements GeneralModelInterface {
     public void setTileIds(List<String> tileIds) {
         this.tileIds = tileIds;
     }
-
+    /**
+     * This is used to return the object of type TermQueryDoc in type String
+     * @return
+     */
     @Override
     public String toString() {
         return "TermQueryTask{" +
                 "id='" + id + '\'' +
-                ", Location=" + Location +
+                ", Location=" + location +
                 ", tileIds=" + tileIds +
                 '}';
     }

@@ -1,9 +1,6 @@
 package com.example.esBenchMarkingTask.utils;
 
-import com.example.esBenchMarkingTask.model.GeneralModelInterface;
-import com.example.esBenchMarkingTask.model.GeoPointTask;
-import com.example.esBenchMarkingTask.model.GeoShapeTask;
-import com.example.esBenchMarkingTask.model.TermQueryTask;
+import com.example.esBenchMarkingTask.model.*;
 import com.google.common.base.Joiner;
 import org.elasticsearch.common.geo.GeoPoint;
 import org.springframework.stereotype.Component;
@@ -12,7 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
+/**
+ * This is a util class, that is used to side tasks that are not that important.
+ * The methods that it has.
+ * <ul>
+ *     <li>getGenerallist</li>
+ *     <li>setGeneralList</li>
+ *     <li>getGeoPointDocs</li>
+ *     <li>setGeoPointDocs</li>
+ *     <li>getGeoShapeDocs</li>
+ *     <li>setGeoShapeDocs</li>
+ *     <li>getTermQueryDocs</li>
+ *     <li>setTermQueryDocs</li>
+ * </ul>
+ */
 @Component
 public class Util {
     public static final double upperBoundLatitude = 85.011;
@@ -22,59 +32,103 @@ public class Util {
     private static final int MAX_ZOOM_LEVELS = 15;
     public int docCount = 10;
     private List<String> tileIds;
-    private List<? extends GeneralModelInterface> generalList;
+    private List<? extends ModelWithLocation> generalList;
 
-    private List<GeoPointTask> geoPointTask;
-    private List<TermQueryTask> termQueryTask;
-    private List<GeoShapeTask> geoShapeTask;
+    private List<GeoPointDoc> geoPointDoc;
+    private List<TermQueryDoc> termQueryDoc;
+    private List<GeoShapeDoc> geoShapeDoc;
 
+    /**
+     * This is used to return the List of documents which is a general list that is to be used for all benchmarking query task that involves tile id and location
+     *
+     * @return
+     */
     public List<? extends GeneralModelInterface> getGeneralList() {
         return generalList;
     }
 
-    public void setGeneralList(List<GeneralModelInterface> generalList) {
-        this.generalList = generalList;
-    }
-
+    /**
+     * This method calls generateListOfDocs() which will set the value for generalList.
+     */
     public void setGeneralList() {
-        generateListOfDocuments();
+        generateListOfDocs();
     }
 
-    public List<GeoPointTask> getGeoPointTask() {
-        if (geoPointTask == null)
-            setGeoPointTask();
-        return geoPointTask;
+    /**
+     * <ul>
+     *     <li>Used to get the value of geoPointDoc</li>
+     *     <li>This method calls setGeoPointDocs() if the value for geoPointDocs is not set. </li>
+     *     <li>This is done so that all index which are mapped in the same way as GeoPointDoc can have the same set of documents. </li>
+     * </ul>
+     */
+    public List<GeoPointDoc> getGeoPointDocs() {
+        if (geoPointDoc == null)
+            setGeoPointDocs();
+        return geoPointDoc;
     }
 
-    public List<TermQueryTask> getTermQueryTask() {
-        if (termQueryTask == null)
-            setTermQueryTask();
-        return termQueryTask;
+    /**
+     * <ul>
+     *      <li>Used to get the value of termQueryDoc</li>
+     *      <li>This method calls setTermQueryDocs() if the value for termQueryDoc is not set. </li>
+     *      <li>This is done so that all index which are mapped in the same way as TermQueryDoc can have the same set of documents. </li>
+     * </ul>
+     */
+    public List<TermQueryDoc> getTermQueryDocs() {
+        if (termQueryDoc == null)
+            setTermQueryDocs();
+        return termQueryDoc;
     }
 
-    public List<GeoShapeTask> getGeoShapeTask() {
-        if (geoShapeTask == null)
-            setGeoShapeTask();
-        return geoShapeTask;
+    /**
+     * <ul>
+     *      <li>Used to get the value of geoShapeDoc</li>
+     *      <li>This method calls setGeoShapeDocs() if the value for geoShapeDoc is not set. </li>
+     *      <li>This is done so that all index which are mapped in the same way as GeoShapeQueryDoc can have the same set of documents. </li>
+     * </ul>
+     */
+    public List<GeoShapeDoc> getGeoShapeDocs() {
+        if (geoShapeDoc == null)
+            setGeoShapeDocs();
+        return geoShapeDoc;
     }
 
-
-    public void setGeoPointTask() {
+    /**
+     * <ul>
+     *      <li><b>THE REASON I SUPPRESSED THESE TYPECAST WARNINGS WAS BECAUSE I NEEDED A LIST OF SPECIFIC TYPE OF GEOPOINTDOC AND THE GENERALLIST IS WILDCARD THAT EXTENDS THE SUPER CLASS OF GEOPOINTDOC. SO ITS FINE TO TYPECAST.</b></li>
+     *      <li>Also this function is set geoPointDoc to be the same value as generalList and incase generalList is empty it calls setGeneralList.</li>
+     * </ul>
+     * */
+    @SuppressWarnings("unchecked")
+    public void setGeoPointDocs() {
         if (generalList == null)
             setGeneralList();
-        this.geoPointTask = (List<GeoPointTask>) generalList;
+        this.geoPointDoc = (List<GeoPointDoc>) generalList;
     }
-
-    public void setTermQueryTask() {
+    /**
+     * <ul>
+     *      <li><b>THE REASON I SUPPRESSED THESE TYPECAST WARNINGS WAS BECAUSE I NEEDED A LIST OF SPECIFIC TYPE OF GEOPOINTDOC AND THE GENERALLIST IS WILDCARD THAT EXTENDS THE SUPER CLASS OF GEOPOINTDOC. SO ITS FINE TO TYPECAST.</b></li>
+     *      <li>Also this function is set termQueryDoc to be the same value as generalList and incase generalList is empty it calls setGeneralList.</li>
+     * </ul>
+     * */
+    @SuppressWarnings("unchecked")
+    public void setTermQueryDocs() {
         if (generalList == null)
             setGeneralList();
-        this.termQueryTask = (List<TermQueryTask>) generalList;
+        this.termQueryDoc = (List<TermQueryDoc>) generalList;
     }
 
-    public void setGeoShapeTask() {
+    /**
+     * <ul>
+     *      <li><b>THE REASON I SUPPRESSED THESE TYPECAST WARNINGS WAS BECAUSE I NEEDED A LIST OF SPECIFIC TYPE OF GEOPOINTDOC AND THE GENERALLIST IS WILDCARD THAT EXTENDS THE SUPER CLASS OF GEOPOINTDOC. SO ITS FINE TO TYPECAST.</b></li>
+     *      <li>Also this function is set geoShapeDoc to be the same value as generalList and incase generalList is empty it calls setGeneralList.</li>
+     * </ul>
+     * */
+    @SuppressWarnings("unchecked")
+    public void setGeoShapeDocs() {
         if (generalList == null)
             setGeneralList();
-        this.geoShapeTask = (List<GeoShapeTask>) generalList;
+        this.geoShapeDoc = (List<GeoShapeDoc>) generalList;
     }
 
     public List<String> calculateTilds(Double lat, Double lan) {
@@ -112,10 +166,10 @@ public class Util {
     }
 
 
-    public void generateListOfDocuments() {
-        List<GeneralModelInterface> listModel = new ArrayList<>();
+    public void generateListOfDocs() {
+        List<ModelWithLocation> listModel = new ArrayList<>();
         for (int i = 0; i < docCount; i++) {
-            GeoPointTask model = new GeoPointTask();
+            GeoPointDoc model = new GeoPointDoc();
             model.setId(String.format("%d", i));
             List<Double> coordinates = generateCoordinates();
             GeoPoint geoPoint = new GeoPoint(coordinates.get(0), coordinates.get(1));
