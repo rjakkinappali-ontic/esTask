@@ -21,7 +21,7 @@ import java.util.List;
 public class GeoDistanceQueryHandler implements  QueryHandler{
 
     public static final String hostAndPort = "localhost:9200";
-    public static final String geoPointsIndex = "test1geopoints";
+    public static final String geoPointsIndex = "testing1geopoints";
     public static final int radiusOfSearch = 20;
 
     @Override

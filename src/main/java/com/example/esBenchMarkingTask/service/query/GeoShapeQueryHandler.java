@@ -21,7 +21,7 @@ import java.util.List;
 
 public class GeoShapeQueryHandler implements QueryHandler{
     public static final String hostAndPort = "localhost:9200";
-    public static final String geoShapeIndex = "test2geoshapes";
+    public static final String geoShapeIndex = "testing2geoshapes";
     @Override
     public void handleQuery(JSONObject query) throws IOException {
         JSONArray locationArray = query.getJSONArray("Location");
