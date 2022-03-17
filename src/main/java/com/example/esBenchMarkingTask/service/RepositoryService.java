@@ -56,10 +56,6 @@ public class RepositoryService {
         indexingTypeHandler.indexDocs();
     }
 
-//    public void queryHandle(JSONObject query){
-//        QueryType queryTypeEnum = QueryType.valueOf(query.getString("type"));
-//        QueryTyp
-//    }
     public void queryHandle(JSONObject query) throws IOException{
         QueryType queryTypeEnum = QueryType.valueOf(query.getString("type"));
         QueryHandler queryHandler = queryRegistry.getQueryHandler(queryTypeEnum);
