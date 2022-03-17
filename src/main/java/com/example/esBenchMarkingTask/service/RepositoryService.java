@@ -6,6 +6,8 @@ import com.example.esBenchMarkingTask.model.IndexingType;
 import com.example.esBenchMarkingTask.model.QueryType;
 import com.example.esBenchMarkingTask.service.indexing.IndexingTypeHandler;
 import com.example.esBenchMarkingTask.service.indexing.IndexingTypeHandlerRegistry;
+import com.example.esBenchMarkingTask.service.query.QueryHandler;
+import com.example.esBenchMarkingTask.service.query.QueryTypeRegistry;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -38,7 +40,10 @@ public class RepositoryService {
 
 
     @Autowired
-    private IndexingTypeHandlerRegistry registry;
+    private IndexingTypeHandlerRegistry indexRegistry;
+
+    @Autowired
+    private QueryTypeRegistry queryRegistry;
 
 
     /**
@@ -47,7 +52,7 @@ public class RepositoryService {
      */
     public void writeDocs(String indexingType) {
         IndexingType indexingTypeEnum = IndexingType.valueOf(indexingType);
-        IndexingTypeHandler indexingTypeHandler = registry.getIndexingTypeHandler(indexingTypeEnum);
+        IndexingTypeHandler indexingTypeHandler = indexRegistry.getIndexingTypeHandler(indexingTypeEnum);
         indexingTypeHandler.indexDocs();
     }
 
@@ -55,20 +60,12 @@ public class RepositoryService {
 //        QueryType queryTypeEnum = QueryType.valueOf(query.getString("type"));
 //        QueryTyp
 //    }
-    public void handleQuery(JSONObject query) throws IOException {
-        String queryType = query.getString("type");
-        switch (queryType) {
-            case "term":
-                handleTermQuery(query);
-                break;
-            case "geo_shape":
-                handleGeoShapeQuery(query);
-                break;
-            case "geo_point":
-                handleGeoPointQuery(query);
-                break;
-        }
+    public void queryHandle(JSONObject query) throws IOException{
+        QueryType queryTypeEnum = QueryType.valueOf(query.getString("type"));
+        QueryHandler queryHandler = queryRegistry.getQueryHandler(queryTypeEnum);
+        queryHandler.handleQuery(query);
     }
+
 
     private void handleGeoPointQuery(JSONObject query) throws IOException {
         JSONArray locationArray = query.getJSONArray("Location");
