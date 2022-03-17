@@ -66,25 +66,4 @@ public class RepositoryService {
         queryHandler.handleQuery(query);
     }
 
-
-
-
-
-    private void handleTermQuery(JSONObject query) throws IOException {
-        String tileId = query.getString("tileId");
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.size(5);
-        searchSourceBuilder.query(QueryBuilders.termQuery("tileIds", tileId));
-        SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices(termQueryIndex);
-        searchRequest.source(searchSourceBuilder);
-        ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo(hostAndPort).build();
-        RestHighLevelClient client = RestClients.create(clientConfiguration).rest();
-        SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
-        SearchHit[] searchHits = response.getHits().getHits();
-        System.out.println(searchHits.length);
-        for (SearchHit i : searchHits) {
-            System.out.println(i.toString());
-        }
-    }
 }
