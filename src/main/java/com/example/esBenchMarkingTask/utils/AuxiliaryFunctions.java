@@ -28,6 +28,8 @@ public class AuxiliaryFunctions {
     private List<TermQueryDoc> termQueryDoc;
     private List<GeoShapeDoc> geoShapeDoc;
 
+
+
     /**
      * This is used to return the List of documents which is a general list that is to be used for all benchmarking query task that involves tile id and location
      *
