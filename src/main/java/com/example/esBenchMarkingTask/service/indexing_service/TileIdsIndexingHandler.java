@@ -24,6 +24,9 @@ public class TileIdsIndexingHandler implements IndexingTypeHandler {
     @Autowired
     private RepoTermQuery repoTermQuery;
 
+    /**
+     * This has a Suppress warning as I am DownCasting but it should be fine as the superclass contains same fields as subclass and follows same pattern.
+     */
     @Override
     @SuppressWarnings("unchecked")
     public void indexDocs() {

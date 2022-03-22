@@ -25,6 +25,9 @@ public class GeoPointIndexingHandler implements IndexingTypeHandler {
     @Autowired
     private RepoGeoPoint repoGeoPoint;
 
+    /**
+     * This has a Suppress warning as I am DownCasting but it should be fine as the superclass contains same fields as subclass and follows same pattern.
+     */
     @Override
     @SuppressWarnings("unchecked")
     public void indexDocs() {
