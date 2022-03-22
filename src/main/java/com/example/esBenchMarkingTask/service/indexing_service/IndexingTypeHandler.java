@@ -6,7 +6,7 @@ import com.example.esBenchMarkingTask.model.ModelWithLocation;
 /**
  * This is a contract used by GeoPointHandler, GeoShapeHandler, and TileIdsHandler to wireDocs.
  */
-public interface IndexingTypeHandler<T extends ModelWithLocation> {
+public interface IndexingTypeHandler{
 
     void indexDocs();
 

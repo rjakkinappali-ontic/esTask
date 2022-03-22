@@ -1,10 +1,17 @@
 package com.example.esBenchMarkingTask.service.indexing_service;
 
+import com.example.esBenchMarkingTask.model.GeoPointDoc;
 import com.example.esBenchMarkingTask.model.GeoShapeDoc;
 import com.example.esBenchMarkingTask.model.IndexingType;
+import com.example.esBenchMarkingTask.repository.RepoGeoPoint;
+import com.example.esBenchMarkingTask.repository.RepoGeoShape;
 import com.example.esBenchMarkingTask.utils.DataCreation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 /**
  * Service that creates and indexes GeoShapeDoc.
  * It has the following methods.
@@ -14,10 +21,16 @@ import org.springframework.stereotype.Service;
  * </ul>
  */
 @Service
-public class GeoShapeIndexingHandler extends AbstractIndexHandler<GeoShapeDoc> {
+public class GeoShapeIndexingHandler implements IndexingTypeHandler {
 
-    protected GeoShapeIndexingHandler(ElasticsearchRepository<GeoShapeDoc, String> repository, DataCreation<GeoShapeDoc> dataCreation) {
-        super(repository, dataCreation);
+    private DataCreation dataCreation = DataCreation.getInstance();
+    @Autowired
+    private RepoGeoShape repoGeoShape;
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void indexDocs() {
+        repoGeoShape.saveAll((List<GeoShapeDoc>)dataCreation.getGeneratedDocs());
     }
 
     /**

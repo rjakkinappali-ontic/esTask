@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * Service that creates and indexes GeoPointDoc.
@@ -18,10 +20,16 @@ import org.springframework.stereotype.Service;
  * </ul>
  */
 @Service
-public class GeoPointIndexingHandler extends AbstractIndexHandler<GeoPointDoc> {
-
+public class GeoPointIndexingHandler implements IndexingTypeHandler {
+    private DataCreation dataCreation = DataCreation.getInstance();
     @Autowired
-    public RepoGeoPoint repoGeoPoint;
+    private RepoGeoPoint repoGeoPoint;
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void indexDocs() {
+        repoGeoPoint.saveAll((List<GeoPointDoc>)dataCreation.getGeneratedDocs());
+    }
 
     /**
      * This is used to get the ENUM value GEO_POINT

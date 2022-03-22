@@ -2,9 +2,13 @@ package com.example.esBenchMarkingTask.service.indexing_service;
 
 import com.example.esBenchMarkingTask.model.IndexingType;
 import com.example.esBenchMarkingTask.model.TermQueryDoc;
+import com.example.esBenchMarkingTask.repository.RepoTermQuery;
 import com.example.esBenchMarkingTask.utils.DataCreation;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 /**
  * Service that creates and indexes TermQueryDoc.
  * It has the following methods.
@@ -14,12 +18,17 @@ import org.springframework.stereotype.Service;
  * </ul>
  */
 @Service
-public class TileIdsIndexingHandler extends AbstractIndexHandler<TermQueryDoc> {
+public class TileIdsIndexingHandler implements IndexingTypeHandler {
 
-    protected TileIdsIndexingHandler(ElasticsearchRepository<TermQueryDoc, String> repository, DataCreation<TermQueryDoc> dataCreation) {
-        super(repository, dataCreation);
+    private DataCreation dataCreation = DataCreation.getInstance();
+    @Autowired
+    private RepoTermQuery repoTermQuery;
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void indexDocs() {
+        repoTermQuery.saveAll((List<TermQueryDoc>)dataCreation.getGeneratedDocs());
     }
-
     /**
      * This is used to get the ENUM value TILE_IDS
      * @return

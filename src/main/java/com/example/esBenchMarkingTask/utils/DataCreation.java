@@ -9,17 +9,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class DataCreation<T extends ModelWithLocation> {
-    public static final double upperBoundLatitude = 85.011;
-    public static final double lowerBoundLatitude = 85.0511;
-    public static final double lowerBoundLongitude = 180.0;
-    public static final double upperBoundLongitude = 180.0;
-    private static final int MAX_ZOOM_LEVELS = 15;
+public class DataCreation {
+    public double upperBoundLatitude = 85.011;
+    public double lowerBoundLatitude = 85.0511;
+    public double lowerBoundLongitude = 180.0;
+    public double upperBoundLongitude = 180.0;
+    private int MAX_ZOOM_LEVELS = 15;
     public int docCount = 10;
-    private final List<T> generatedDocs;
+    private List<? extends ModelWithLocation> generatedDocs;
+    private static DataCreation dataCreationInstance;
     private List<String> tileIds;
 
-    public List<T> getGeneratedDocs() {
+    synchronized public static DataCreation getInstance()
+    {
+        if(dataCreationInstance == null){
+            dataCreationInstance = new DataCreation();
+        }
+        return dataCreationInstance;
+    }
+
+
+    public List<? extends ModelWithLocation> getGeneratedDocs() {
         return generatedDocs;
     }
 
@@ -27,13 +37,9 @@ public class DataCreation<T extends ModelWithLocation> {
         this.generatedDocs = RandomDocsGenerator();
     }
 
-    /**
-     * Couldnt think of any other way
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    private List<T> RandomDocsGenerator() {
-        List<T> generalList = new ArrayList<>();
+
+    private List<? extends ModelWithLocation> RandomDocsGenerator() {
+        List<ModelWithLocation> generalList = new ArrayList<>();
         for(int i=0;i<docCount;i++){
             ModelWithLocation model = new GeoPointDoc();
             model.setId(String.format("%d", i));
@@ -41,7 +47,7 @@ public class DataCreation<T extends ModelWithLocation> {
             GeoPoint geoPoint = new GeoPoint(coordinates.get(0), coordinates.get(1));
             model.setLocation(geoPoint);
             model.setTileIds(calculateTilds(coordinates.get(0), coordinates.get(1)));
-            generalList.add((T)model);
+            generalList.add(model);
         }
         return generalList;
     }
