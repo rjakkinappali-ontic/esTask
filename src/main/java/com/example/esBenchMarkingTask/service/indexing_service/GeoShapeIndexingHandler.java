@@ -1,9 +1,7 @@
 package com.example.esBenchMarkingTask.service.indexing_service;
 
+import com.example.esBenchMarkingTask.model.GeoShapeDoc;
 import com.example.esBenchMarkingTask.model.IndexingType;
-import com.example.esBenchMarkingTask.repository.RepoGeoShapeQuery;
-import com.example.esBenchMarkingTask.utils.AuxiliaryFunctions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**
  * Service that creates and indexes GeoShapeDoc.
@@ -14,21 +12,8 @@ import org.springframework.stereotype.Service;
  * </ul>
  */
 @Service
-public class GeoShapeIndexingHandler implements IndexingTypeHandler {
+public class GeoShapeIndexingHandler extends AbstractIndexHandler<GeoShapeDoc> {
 
-    @Autowired
-    private RepoGeoShapeQuery repoGeoShapeQuery;
-
-    @Autowired
-    private AuxiliaryFunctions util;
-
-    /**
-     * This is used to write the GeoShapedocuments into the index.
-     */
-    @Override
-    public void indexDocs() {
-        repoGeoShapeQuery.saveAll(util.getGeoShapeDocs());
-    }
     /**
      * This is used to get the ENUM value GEO_SHAPE
      * @return

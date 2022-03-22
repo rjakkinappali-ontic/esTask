@@ -1,9 +1,7 @@
 package com.example.esBenchMarkingTask.service.indexing_service;
 
 import com.example.esBenchMarkingTask.model.IndexingType;
-import com.example.esBenchMarkingTask.repository.RepoTermQuery;
-import com.example.esBenchMarkingTask.utils.AuxiliaryFunctions;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.esBenchMarkingTask.model.TermQueryDoc;
 import org.springframework.stereotype.Service;
 /**
  * Service that creates and indexes TermQueryDoc.
@@ -14,21 +12,7 @@ import org.springframework.stereotype.Service;
  * </ul>
  */
 @Service
-public class TileIdsIndexingHandler implements IndexingTypeHandler {
-
-    @Autowired
-    private RepoTermQuery repoTermQuery;
-
-    @Autowired
-    private AuxiliaryFunctions util;
-
-    /**
-     * This is used to write the Index documents into the index.
-     */
-    @Override
-    public void indexDocs() {
-        repoTermQuery.saveAll(util.getTermQueryDocs());
-    }
+public class TileIdsIndexingHandler extends AbstractIndexHandler<TermQueryDoc> {
 
     /**
      * This is used to get the ENUM value TILE_IDS

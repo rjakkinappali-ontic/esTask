@@ -27,16 +27,21 @@ public class DataCreation<T extends ModelWithLocation> {
         this.generatedDocs = RandomDocsGenerator();
     }
 
+    /**
+     * Couldnt think of any other way
+     * @return
+     */
+    @SuppressWarnings("unchecked")
     private List<T> RandomDocsGenerator() {
         List<T> generalList = new ArrayList<>();
         for(int i=0;i<docCount;i++){
-            T model = new ();
+            ModelWithLocation model = new GeoPointDoc();
             model.setId(String.format("%d", i));
             List<Double> coordinates = generateCoordinates();
             GeoPoint geoPoint = new GeoPoint(coordinates.get(0), coordinates.get(1));
             model.setLocation(geoPoint);
             model.setTileIds(calculateTilds(coordinates.get(0), coordinates.get(1)));
-            generalList.add(model);
+            generalList.add((T)model);
         }
         return generalList;
     }
@@ -71,7 +76,7 @@ public class DataCreation<T extends ModelWithLocation> {
         );
     }
 
-    private Object getY(Double i, Double y) {
+    private Integer getY(Double i, Double y) {
         return (int) Math.floor(((y + 180) / 360) * Math.pow(2, i));
     }
 
