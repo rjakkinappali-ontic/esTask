@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class DataCreation<T> {
+public class DataCreation<T extends ModelWithLocation> {
     public static final double upperBoundLatitude = 85.011;
     public static final double lowerBoundLatitude = 85.0511;
     public static final double lowerBoundLongitude = 180.0;
@@ -19,6 +19,10 @@ public class DataCreation<T> {
     private final List<T> generatedDocs;
     private List<String> tileIds;
 
+    public List<T> getGeneratedDocs() {
+        return generatedDocs;
+    }
+
     public DataCreation() {
         this.generatedDocs = RandomDocsGenerator();
     }
@@ -26,7 +30,7 @@ public class DataCreation<T> {
     private List<T> RandomDocsGenerator() {
         List<T> generalList = new ArrayList<>();
         for(int i=0;i<docCount;i++){
-            T model = new T();
+            T model = new ();
             model.setId(String.format("%d", i));
             List<Double> coordinates = generateCoordinates();
             GeoPoint geoPoint = new GeoPoint(coordinates.get(0), coordinates.get(1));

@@ -1,5 +1,6 @@
 package com.example.esBenchMarkingTask.service.indexing_service;
 
+import com.example.esBenchMarkingTask.model.GeoPointDoc;
 import com.example.esBenchMarkingTask.model.IndexingType;
 import com.example.esBenchMarkingTask.repository.RepoGeoPointQuery;
 import com.example.esBenchMarkingTask.utils.AuxiliaryFunctions;
@@ -16,20 +17,20 @@ import org.springframework.stereotype.Service;
  * </ul>
  */
 @Service
-public class GeoPointIndexingHandler implements IndexingTypeHandler {
+public class GeoPointIndexingHandler extends AbstractIndexHandler<GeoPointDoc> {
     @Autowired
     private RepoGeoPointQuery repoGeoPointQuery;
 
     @Autowired
     private AuxiliaryFunctions util;
 
-    /**
-     * This is used to write the GeoPoint documents into the index.
-     */
-    @Override
-    public void indexDocs() {
-        repoGeoPointQuery.saveAll(util.getGeoPointDocs());
-    }
+//    /**
+//     * This is used to write the GeoPoint documents into the index.
+//     */
+//    @Override
+//    public void indexDocs() {
+//        repoGeoPointQuery.saveAll(util.getGeoPointDocs());
+//    }
 
     /**
      * This is used to get the ENUM value GEO_POINT
