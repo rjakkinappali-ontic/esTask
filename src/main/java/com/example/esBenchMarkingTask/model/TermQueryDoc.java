@@ -3,6 +3,7 @@ package com.example.esBenchMarkingTask.model;
 import org.elasticsearch.common.geo.GeoPoint;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.GeoPointField;
 
 import java.util.List;
 /**
@@ -14,13 +15,14 @@ import java.util.List;
  *     <li><b>List < String ></b>: TileIds</li>
  * </ul>
  */
-@Document(indexName = "testing3termquerys")
+@Document(indexName = "testing3termquerystrial")
 public class TermQueryDoc implements ModelWithLocation {
 
     @Id
     private String id;
 
-    private GeoPoint location;
+    @GeoPointField
+    private GeoPoint Location;
 
     private List<String> tileIds;
 
@@ -45,7 +47,7 @@ public class TermQueryDoc implements ModelWithLocation {
      * @return
      */
     public GeoPoint getLocation() {
-        return location;
+        return Location;
     }
 
     /**
@@ -53,7 +55,7 @@ public class TermQueryDoc implements ModelWithLocation {
      * @param location
      */
     public void setLocation(GeoPoint location) {
-        this.location = location;
+        this.Location = location;
     }
 
     /**
@@ -79,7 +81,7 @@ public class TermQueryDoc implements ModelWithLocation {
     public String toString() {
         return "TermQueryTask{" +
                 "id='" + id + '\'' +
-                ", Location=" + location +
+                ", Location=" + Location +
                 ", tileIds=" + tileIds +
                 '}';
     }

@@ -21,7 +21,7 @@ import java.io.IOException;
 @Service
 public class TermQueryHandler implements QueryHandler{
     public static final String hostAndPort = "localhost:9200";
-    public static final String termQueryIndex = "testing3termquerys";
+    public static final String termQueryIndex = "testing3termquerystrial";
 
     /**
      * <ul>

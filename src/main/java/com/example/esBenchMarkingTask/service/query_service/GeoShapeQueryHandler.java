@@ -26,7 +26,7 @@ import java.util.List;
 @Service
 public class GeoShapeQueryHandler implements QueryHandler{
     public static final String hostAndPort = "localhost:9200";
-    public static final String geoShapeIndex = "testing2geoshapes";
+    public static final String geoShapeIndex = "testing2geoshapestrial";
     /**
      * <ul>
      *     <li>This method handle a query and search for all GeoPoints in the "testing2geoshape index that are in a bounding rectangle enclosed by the bottom right and top left coordinate provided in the JSONObject Location</li>

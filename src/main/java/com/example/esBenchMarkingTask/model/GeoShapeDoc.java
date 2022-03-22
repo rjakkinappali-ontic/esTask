@@ -15,13 +15,13 @@ import java.util.List;
  *     <li><b>List < String ></b>: TileIds</li>
  * </ul>
  */
-@Document(indexName = "testing2geoshapes")
+@Document(indexName = "testing2geoshapestrial")
 public class GeoShapeDoc implements ModelWithLocation {
     @Id
     private String id;
 
     @GeoPointField
-    private GeoPoint location;
+    private GeoPoint Location;
 
     private List<String> tileIds;
     /**
@@ -32,7 +32,7 @@ public class GeoShapeDoc implements ModelWithLocation {
     public String toString() {
         return "taskData{" +
                 "id='" + id + '\'' +
-                ", Location=" + location +
+                ", Location=" + Location +
                 ", tileIds=" + tileIds +
                 '}';
     }
@@ -58,7 +58,7 @@ public class GeoShapeDoc implements ModelWithLocation {
      * @return
      */
     public GeoPoint getLocation() {
-        return location;
+        return Location;
     }
 
     /**
@@ -66,7 +66,7 @@ public class GeoShapeDoc implements ModelWithLocation {
      * @param location
      */
     public void setLocation(GeoPoint location) {
-        this.location = location;
+        this.Location = location;
     }
 
     /**
