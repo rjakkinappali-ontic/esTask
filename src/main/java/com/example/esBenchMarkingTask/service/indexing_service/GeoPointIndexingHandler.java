@@ -2,7 +2,9 @@ package com.example.esBenchMarkingTask.service.indexing_service;
 
 import com.example.esBenchMarkingTask.model.GeoPointDoc;
 import com.example.esBenchMarkingTask.model.IndexingType;
+import com.example.esBenchMarkingTask.repository.RepoGeoPoint;
 import com.example.esBenchMarkingTask.utils.DataCreation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class GeoPointIndexingHandler extends AbstractIndexHandler<GeoPointDoc> {
 
-    protected GeoPointIndexingHandler(ElasticsearchRepository<GeoPointDoc, String> repository, DataCreation<GeoPointDoc> dataCreation) {
-        super(repository, dataCreation);
-    }
+    @Autowired
+    public RepoGeoPoint repoGeoPoint;
 
     /**
      * This is used to get the ENUM value GEO_POINT
