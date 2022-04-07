@@ -5,9 +5,11 @@ import com.example.esBenchMarkingTask.model.IndexingType;
 import com.example.esBenchMarkingTask.repository.RepoGeoShapeField;
 import com.example.esBenchMarkingTask.utils.DataCreation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class GeoShapeFieldIndexingQuery implements IndexingTypeHandler {
     private DataCreation dataCreation = DataCreation.getInstance();
     @Autowired
