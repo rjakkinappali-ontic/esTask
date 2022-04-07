@@ -29,8 +29,11 @@ public class BenchmarkingController {
      * @param indexingType The type of index
      */
     @PostMapping("/bulkWrite")
-    public void bulkWriteDocs(@RequestParam(value = "indexType") String indexingType) {
+    public long bulkWriteDocs(@RequestParam(value = "indexType") String indexingType) {
+        long startTime = System.currentTimeMillis();
         repositoryService.writeDocs(indexingType);
+        long endTime = System.currentTimeMillis();
+        return endTime - startTime;
     }
 
     /**
@@ -50,7 +53,7 @@ public class BenchmarkingController {
     public long termQuery(@RequestBody JSONObject query) throws IOException {
         long startTime = System.currentTimeMillis();
         repositoryService.queryHandle(query);
-        long end = System.currentTimeMillis();
-        return end - startTime;
+        long endTime = System.currentTimeMillis();
+        return endTime - startTime;
     }
 }
