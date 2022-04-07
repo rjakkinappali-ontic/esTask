@@ -30,7 +30,7 @@ public class TileIdsIndexingHandler implements IndexingTypeHandler {
     @Override
     @SuppressWarnings("unchecked")
     public void indexDocs() {
-        repoTermQuery.saveAll((List<TermQueryDoc>)dataCreation.getGeneratedDocs());
+        repoTermQuery.saveAll((List<TermQueryDoc>)dataCreation.getGeneratedGeoPointDocs());
     }
     /**
      * This is used to get the ENUM value TILE_IDS

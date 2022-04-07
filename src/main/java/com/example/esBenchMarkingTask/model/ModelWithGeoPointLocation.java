@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Interface that is to be used by indexes that have to set location and set tile ids, and have fields called location and tile ids
  */
-public interface ModelWithLocation extends GeneralModelInterface {
+public interface ModelWithGeoPointLocation extends GeneralModelInterface {
 
     /**
      * Method that is to be used by classes for setting locations of type GeoPoint

@@ -5,6 +5,7 @@ package com.example.esBenchMarkingTask.model;
  */
 public enum IndexingType {
     TILE_IDS,
-    GEO_SHAPE,
+    GEO_SHAPE_QUERY,
+    GEO_SHAPE_FIELD,
     GEO_POINT
 }

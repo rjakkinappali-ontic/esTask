@@ -1,7 +1,8 @@
 package com.example.esBenchMarkingTask.utils;
 
 import com.example.esBenchMarkingTask.model.GeoPointDoc;
-import com.example.esBenchMarkingTask.model.ModelWithLocation;
+import com.example.esBenchMarkingTask.model.ModelWithGeoPointLocation;
+import com.example.esBenchMarkingTask.model.ModelWithGeoShapeLocation;
 import org.elasticsearch.common.geo.GeoPoint;
 
 import java.util.ArrayList;
@@ -18,7 +19,8 @@ public class DataCreation {
     public double upperBoundLongitude = 180.0;
     private int MAX_ZOOM_LEVELS = 15;
     public int docCount = 10;
-    private List<? extends ModelWithLocation> generatedDocs;
+    private List<? extends ModelWithGeoPointLocation> generatedGeoPointDocs;
+    private List<? extends ModelWithGeoShapeLocation> generatedGeoShapeDocs;
     private static DataCreation dataCreationInstance;
     private List<String> tileIds;
 
@@ -38,16 +40,19 @@ public class DataCreation {
      * This function is to get the generated documents. Used wildcard as it can be of any type GeoPointDoc, GeoShapeDoc, or TermQueryDoc which are all subclasses of ModelWithLocation
      * @return
      */
-    public List<? extends ModelWithLocation> getGeneratedDocs() {
-        return generatedDocs;
+    public List<? extends ModelWithGeoPointLocation> getGeneratedGeoPointDocs() {
+        return generatedGeoPointDocs;
     }
 
+    public List<? extends ModelWithGeoShapeLocation> getGeneratedGeoShapeDocs(){
+        return generatedGeoShapeDocs;
+    }
 
     /**
      * This is the constructor used to initialize generated Docs
      */
     private DataCreation() {
-        this.generatedDocs = RandomDocsGenerator();
+        this.generatedGeoPointDocs = RandomDocsGenerator();
     }
 
     /**
@@ -59,10 +64,10 @@ public class DataCreation {
      * </ul>
      * @return generalList
      */
-    private List<? extends ModelWithLocation> RandomDocsGenerator() {
-        List<ModelWithLocation> generalList = new ArrayList<>();
+    private List<? extends ModelWithGeoPointLocation> RandomDocsGenerator() {
+        List<ModelWithGeoPointLocation> generalList = new ArrayList<>();
         for(int i=0;i<docCount;i++){
-            ModelWithLocation model = new GeoPointDoc();
+            ModelWithGeoPointLocation model = new GeoPointDoc();
             model.setId(String.format("%d", i));
             List<Double> coordinates = AuxiliaryFunction.generateCoordinates();
             GeoPoint geoPoint = new GeoPoint(coordinates.get(0), coordinates.get(1));

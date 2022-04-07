@@ -15,8 +15,8 @@ import java.util.List;
  *     <li><b>List < String ></b>: TileIds</li>
  * </ul>
  */
-@Document(indexName = "testing3termquerystrial")
-public class TermQueryDoc implements ModelWithLocation {
+@Document(indexName = "termquerydocmillion")
+public class TermQueryDoc implements ModelWithGeoPointLocation {
 
     @Id
     private String id;

@@ -15,8 +15,8 @@ import java.util.List;
  *     <li><b>List < String ></b>: TileIds</li>
  * </ul>
  */
-@Document(indexName = "testing2geoshapestrial")
-public class GeoShapeDoc implements ModelWithLocation {
+@Document(indexName = "geoshapequerydocmillion")
+public class GeoShapeQueryDoc implements ModelWithGeoPointLocation {
     @Id
     private String id;
 

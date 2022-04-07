@@ -16,8 +16,8 @@ import java.util.List;
  *     <li><b>List < String ></b>: TileIds</li>
  * </ul>
  */
-@Document(indexName = "testing1geopointstrial")
-public class GeoPointDoc implements ModelWithLocation {
+@Document(indexName = "geopointdocmillion")
+public class GeoPointDoc implements ModelWithGeoPointLocation {
     @Id
     private String id;
 

@@ -63,6 +63,6 @@ public class GeoShapeQueryHandler implements QueryHandler{
 
     @Override
     public QueryType getQueryingType() {
-        return QueryType.GEO_SHAPE;
+        return QueryType.GEO_SHAPE_QUERY;
     }
 }

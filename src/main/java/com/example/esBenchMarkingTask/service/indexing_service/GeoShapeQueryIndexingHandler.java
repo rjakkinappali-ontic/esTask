@@ -1,13 +1,10 @@
 package com.example.esBenchMarkingTask.service.indexing_service;
 
-import com.example.esBenchMarkingTask.model.GeoPointDoc;
-import com.example.esBenchMarkingTask.model.GeoShapeDoc;
+import com.example.esBenchMarkingTask.model.GeoShapeQueryDoc;
 import com.example.esBenchMarkingTask.model.IndexingType;
-import com.example.esBenchMarkingTask.repository.RepoGeoPoint;
-import com.example.esBenchMarkingTask.repository.RepoGeoShape;
+import com.example.esBenchMarkingTask.repository.RepoGeoShapeQuery;
 import com.example.esBenchMarkingTask.utils.DataCreation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,11 +18,11 @@ import java.util.List;
  * </ul>
  */
 @Service
-public class GeoShapeIndexingHandler implements IndexingTypeHandler {
+public class GeoShapeQueryIndexingHandler implements IndexingTypeHandler {
 
     private DataCreation dataCreation = DataCreation.getInstance();
     @Autowired
-    private RepoGeoShape repoGeoShape;
+    private RepoGeoShapeQuery repoGeoShapeQuery;
 
     /**
      * This has a Suppress warning as I am DownCasting but it should be fine as the superclass contains same fields as subclass and follows same pattern.
@@ -33,7 +30,7 @@ public class GeoShapeIndexingHandler implements IndexingTypeHandler {
     @Override
     @SuppressWarnings("unchecked")
     public void indexDocs() {
-        repoGeoShape.saveAll((List<GeoShapeDoc>)dataCreation.getGeneratedDocs());
+        repoGeoShapeQuery.saveAll((List<GeoShapeQueryDoc>)dataCreation.getGeneratedGeoPointDocs());
     }
 
     /**
@@ -42,6 +39,6 @@ public class GeoShapeIndexingHandler implements IndexingTypeHandler {
      */
     @Override
     public IndexingType indexingType() {
-        return IndexingType.GEO_SHAPE;
+        return IndexingType.GEO_SHAPE_QUERY;
     }
 }

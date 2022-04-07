@@ -1,9 +1,9 @@
 package com.example.esBenchMarkingTask.repository;
 
-import com.example.esBenchMarkingTask.model.GeoShapeDoc;
+import com.example.esBenchMarkingTask.model.GeoShapeFieldDoc;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RepoGeoShape extends ElasticsearchRepository<GeoShapeDoc, String> {
+public interface RepoGeoShapeField extends ElasticsearchRepository<GeoShapeFieldDoc, String> {
 }
