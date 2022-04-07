@@ -1,7 +1,9 @@
 package com.example.esBenchMarkingTask.service.indexing_service;
 
+import com.example.esBenchMarkingTask.model.GeoPointDoc;
 import com.example.esBenchMarkingTask.model.GeoShapeQueryDoc;
 import com.example.esBenchMarkingTask.model.IndexingType;
+import com.example.esBenchMarkingTask.model.ModelWithGeoPointLocation;
 import com.example.esBenchMarkingTask.repository.RepoGeoShapeQuery;
 import com.example.esBenchMarkingTask.utils.DataCreation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,10 @@ public class GeoShapeQueryIndexingHandler implements IndexingTypeHandler {
     @Override
     @SuppressWarnings("unchecked")
     public void indexDocs() {
-        repoGeoShapeQuery.saveAll((List<GeoShapeQueryDoc>)dataCreation.getGeneratedGeoPointDocs());
+        List<List<? extends ModelWithGeoPointLocation>> fullGeoPointDocumentList = dataCreation.getGeneratedGeoPointDocs();
+        for(int i=0;i<10;i++){
+            repoGeoShapeQuery.saveAll((List<GeoShapeQueryDoc>) fullGeoPointDocumentList.get(i));
+        }
     }
 
     /**

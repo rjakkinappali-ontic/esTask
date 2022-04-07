@@ -2,22 +2,21 @@ package com.example.esBenchMarkingTask.model;
 
 
 
-import org.janusgraph.core.attribute.Geoshape;
-import org.elasticsearch.common.geo.GeoShapeType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.GeoShapeField;
+import org.springframework.data.elasticsearch.core.geo.GeoJsonPoint;
 
 import java.util.List;
 
-@Document(indexName = "geoshapefielddocmilliontest1")
+@Document(indexName = "geoshapefielddocmilliontest4")
 public class GeoShapeFieldDoc implements ModelWithGeoShapeLocation{
 
     @Id
     private String id;
 
     @GeoShapeField
-    private Geoshape Location;
+    private GeoJsonPoint Location;
 
     private List<String> tileIds;
 
@@ -39,12 +38,12 @@ public class GeoShapeFieldDoc implements ModelWithGeoShapeLocation{
         this.id = id;
     }
 
-    public Geoshape getLocation() {
+    public GeoJsonPoint getLocation() {
         return Location;
     }
 
     @Override
-    public void setLocation(Geoshape location) {
+    public void setLocation(GeoJsonPoint location) {
         Location = location;
     }
 

@@ -7,6 +7,7 @@ import com.example.esBenchMarkingTask.model.ModelWithGeoShapeLocation;
 import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.geo.GeoShapeType;
 import org.janusgraph.core.attribute.Geoshape;
+import org.springframework.data.elasticsearch.core.geo.GeoJsonPoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +17,15 @@ import java.util.List;
  * This is the class that is generating the Documents
  */
 public class DataCreation {
+    public static final int documentPartitions = 10;
     public double upperBoundLatitude = 85.011;
     public double lowerBoundLatitude = 85.0511;
     public double lowerBoundLongitude = 180.0;
     public double upperBoundLongitude = 180.0;
     private int MAX_ZOOM_LEVELS = 15;
-    public int docCount = 1_000_000;
-    private List<? extends ModelWithGeoPointLocation> generatedGeoPointDocs;
-    private List<? extends ModelWithGeoShapeLocation> generatedGeoShapeDocs;
+    public int docCount = 100000;
+    private List<List<? extends ModelWithGeoPointLocation>> generatedGeoPointDocs;
+    private List<List<? extends ModelWithGeoShapeLocation>> generatedGeoShapeDocs;
     private static DataCreation dataCreationInstance;
     private List<String> tileIds;
 
@@ -43,11 +45,11 @@ public class DataCreation {
      * This function is to get the generated documents. Used wildcard as it can be of any type GeoPointDoc, GeoShapeDoc, or TermQueryDoc which are all subclasses of ModelWithLocation
      * @return
      */
-    public List<? extends ModelWithGeoPointLocation> getGeneratedGeoPointDocs() {
+    public List<List<? extends ModelWithGeoPointLocation>> getGeneratedGeoPointDocs() {
         return generatedGeoPointDocs;
     }
 
-    public List<? extends ModelWithGeoShapeLocation> getGeneratedGeoShapeDocs(){
+    public List<List<? extends ModelWithGeoShapeLocation>> getGeneratedGeoShapeDocs(){
         return generatedGeoShapeDocs;
     }
 
@@ -67,24 +69,32 @@ public class DataCreation {
      * </ul>
      */
     private void RandomDocsGenerator() {
-        List<ModelWithGeoPointLocation> generalGeoPointList = new ArrayList<>();
-        List<ModelWithGeoShapeLocation> generalGeoShapeList = new ArrayList<>();
-        for(int i=0;i<docCount;i++){
-            ModelWithGeoPointLocation modelGeoPointDoc = new GeoPointDoc();
-            ModelWithGeoShapeLocation modelGeoShapeDoc = new GeoShapeFieldDoc();
-            modelGeoPointDoc.setId(String.format("%d", i));
-            modelGeoShapeDoc.setId(String.format("%d", i));
-            List<Double> coordinates = AuxiliaryFunction.generateCoordinates();
-            GeoPoint geoPoint = new GeoPoint(coordinates.get(0), coordinates.get(1));
-            modelGeoPointDoc.setLocation(geoPoint);
-            Geoshape geoShape = Geoshape.point(coordinates.get(0), coordinates.get(1));
-            List<String> tileIds = AuxiliaryFunction.calculateTileIds(coordinates.get(0), coordinates.get(1));
-            modelGeoPointDoc.setTileIds(tileIds);
-            modelGeoShapeDoc.setTileIds(tileIds);
-            generalGeoPointList.add(modelGeoPointDoc);
-            generalGeoShapeList.add(modelGeoShapeDoc);
+        List<List<? extends ModelWithGeoPointLocation>> fullGeoPointDocs = new ArrayList<>();
+        List<List<? extends ModelWithGeoShapeLocation>> fullGeoShapeDocs = new ArrayList<>();
+        for (int j = 0; j< documentPartitions; j++){
+            List<ModelWithGeoPointLocation> generalGeoPointList = new ArrayList<>();
+            List<ModelWithGeoShapeLocation> generalGeoShapeList = new ArrayList<>();
+            for(int i=0;i<docCount;i++){
+                ModelWithGeoPointLocation modelGeoPointDoc = new GeoPointDoc();
+                ModelWithGeoShapeLocation modelGeoShapeDoc = new GeoShapeFieldDoc();
+                int id = (j*docCount+i);
+                modelGeoPointDoc.setId(String.format("%d", id));
+                modelGeoShapeDoc.setId(String.format("%d", id));
+                List<Double> coordinates = AuxiliaryFunction.generateCoordinates();
+                GeoPoint geoPoint = new GeoPoint(coordinates.get(0), coordinates.get(1));
+                modelGeoPointDoc.setLocation(geoPoint);
+                GeoJsonPoint geoJsonPoint = GeoJsonPoint.of(coordinates.get(0), coordinates.get(1));
+                modelGeoShapeDoc.setLocation(geoJsonPoint);
+                List<String> tileIds = AuxiliaryFunction.calculateTileIds(coordinates.get(0), coordinates.get(1));
+                modelGeoPointDoc.setTileIds(tileIds);
+                modelGeoShapeDoc.setTileIds(tileIds);
+                generalGeoPointList.add(modelGeoPointDoc);
+                generalGeoShapeList.add(modelGeoShapeDoc);
+            }
+            fullGeoPointDocs.add(generalGeoPointList);
+            fullGeoShapeDocs.add(generalGeoShapeList);
         }
-        this.generatedGeoPointDocs = generalGeoPointList;
-        this.generatedGeoShapeDocs = generalGeoShapeList;
+        this.generatedGeoPointDocs = fullGeoPointDocs;
+        this.generatedGeoShapeDocs = fullGeoShapeDocs;
     }
 }

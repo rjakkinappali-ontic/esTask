@@ -29,11 +29,8 @@ public class BenchmarkingController {
      * @param indexingType The type of index
      */
     @PostMapping("/bulkWrite")
-    public long bulkWriteDocs(@RequestParam(value = "indexType") String indexingType) {
-        long startTime = System.currentTimeMillis();
+    public void bulkWriteDocs(@RequestParam(value = "indexType") String indexingType) {
         repositoryService.writeDocs(indexingType);
-        long endTime = System.currentTimeMillis();
-        return endTime - startTime;
     }
 
     /**

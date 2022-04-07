@@ -1,6 +1,8 @@
 package com.example.esBenchMarkingTask.service.indexing_service;
 
+import com.example.esBenchMarkingTask.model.GeoPointDoc;
 import com.example.esBenchMarkingTask.model.IndexingType;
+import com.example.esBenchMarkingTask.model.ModelWithGeoPointLocation;
 import com.example.esBenchMarkingTask.model.TermQueryDoc;
 import com.example.esBenchMarkingTask.repository.RepoTermQuery;
 import com.example.esBenchMarkingTask.utils.DataCreation;
@@ -30,7 +32,10 @@ public class TileIdsIndexingHandler implements IndexingTypeHandler {
     @Override
     @SuppressWarnings("unchecked")
     public void indexDocs() {
-        repoTermQuery.saveAll((List<TermQueryDoc>)dataCreation.getGeneratedGeoPointDocs());
+        List<List<? extends ModelWithGeoPointLocation>> fullGeoPointDocumentList = dataCreation.getGeneratedGeoPointDocs();
+        for(int i=0;i<10;i++){
+            repoTermQuery.saveAll((List<TermQueryDoc>) fullGeoPointDocumentList.get(i));
+        }
     }
     /**
      * This is used to get the ENUM value TILE_IDS
