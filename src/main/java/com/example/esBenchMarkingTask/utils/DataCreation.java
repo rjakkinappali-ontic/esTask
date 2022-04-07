@@ -21,7 +21,7 @@ public class DataCreation {
     public double lowerBoundLongitude = 180.0;
     public double upperBoundLongitude = 180.0;
     private int MAX_ZOOM_LEVELS = 15;
-    public int docCount = 10;
+    public int docCount = 1_000_000;
     private List<? extends ModelWithGeoPointLocation> generatedGeoPointDocs;
     private List<? extends ModelWithGeoShapeLocation> generatedGeoShapeDocs;
     private static DataCreation dataCreationInstance;
