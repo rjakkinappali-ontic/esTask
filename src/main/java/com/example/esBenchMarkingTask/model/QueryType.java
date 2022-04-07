@@ -6,6 +6,6 @@ package com.example.esBenchMarkingTask.model;
 public enum QueryType {
     TERM,
     GEO_SHAPE_QUERY,
-    GEO_SHAPE_FIELD,
-    GEO_DISTANCE,
+    GEO_SHAPE_GEO_DISTANCE_QUERY,
+    GEO_POINT_GEO_DISTANCE_QUERY,
 }

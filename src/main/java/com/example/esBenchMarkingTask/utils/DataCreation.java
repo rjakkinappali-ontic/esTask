@@ -17,13 +17,13 @@ import java.util.List;
  * This is the class that is generating the Documents
  */
 public class DataCreation {
-    public static final int documentPartitions = 10;
+    public static final int documentPartitions = 1;
     public double upperBoundLatitude = 85.011;
     public double lowerBoundLatitude = 85.0511;
     public double lowerBoundLongitude = 180.0;
     public double upperBoundLongitude = 180.0;
     private int MAX_ZOOM_LEVELS = 15;
-    public int docCount = 100000;
+    public int docCount = 10;
     private List<List<? extends ModelWithGeoPointLocation>> generatedGeoPointDocs;
     private List<List<? extends ModelWithGeoShapeLocation>> generatedGeoShapeDocs;
     private static DataCreation dataCreationInstance;

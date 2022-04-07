@@ -21,7 +21,6 @@ import java.io.IOException;
 @Service
 public class TermQueryHandler implements QueryHandler{
     public static final String hostAndPort = "localhost:9200";
-    public static final String termQueryIndex = "testing3termquerystrial";
 
     /**
      * <ul>
@@ -37,7 +36,7 @@ public class TermQueryHandler implements QueryHandler{
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.termQuery("tileIds", tileId));
         SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices(termQueryIndex);
+        searchRequest.indices(query.getString("index"));
         searchRequest.source(searchSourceBuilder);
         ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo(hostAndPort).build();
         RestHighLevelClient client = RestClients.create(clientConfiguration).rest();

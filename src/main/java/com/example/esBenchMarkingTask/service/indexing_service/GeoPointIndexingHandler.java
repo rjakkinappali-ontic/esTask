@@ -21,6 +21,7 @@ import java.util.List;
  */
 @Service
 public class GeoPointIndexingHandler implements IndexingTypeHandler {
+    public static final int documentPartitions = 1;
     private DataCreation dataCreation = DataCreation.getInstance();
     @Autowired
     private RepoGeoPoint repoGeoPoint;
@@ -32,7 +33,7 @@ public class GeoPointIndexingHandler implements IndexingTypeHandler {
     @SuppressWarnings("unchecked")
     public void indexDocs() {
         List<List<? extends ModelWithGeoPointLocation>> fullGeoPointDocumentList = dataCreation.getGeneratedGeoPointDocs();
-        for(int i=0;i<10;i++){
+        for(int i = 0; i< documentPartitions; i++){
             repoGeoPoint.saveAll((List<GeoPointDoc>) fullGeoPointDocumentList.get(i));
         }
     }

@@ -9,7 +9,7 @@ import org.springframework.data.elasticsearch.core.geo.GeoJsonPoint;
 
 import java.util.List;
 
-@Document(indexName = "geoshapefielddocmilliontest4")
+@Document(indexName = "geoshapefielddocmilliontest5")
 public class GeoShapeFieldDoc implements ModelWithGeoShapeLocation{
 
     @Id

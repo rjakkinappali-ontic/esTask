@@ -22,6 +22,7 @@ import java.util.List;
 @Service
 public class TileIdsIndexingHandler implements IndexingTypeHandler {
 
+    public static final int documenPartitions = 1;
     private DataCreation dataCreation = DataCreation.getInstance();
     @Autowired
     private RepoTermQuery repoTermQuery;
@@ -33,7 +34,7 @@ public class TileIdsIndexingHandler implements IndexingTypeHandler {
     @SuppressWarnings("unchecked")
     public void indexDocs() {
         List<List<? extends ModelWithGeoPointLocation>> fullGeoPointDocumentList = dataCreation.getGeneratedGeoPointDocs();
-        for(int i=0;i<10;i++){
+        for(int i = 0; i< documenPartitions; i++){
             repoTermQuery.saveAll((List<TermQueryDoc>) fullGeoPointDocumentList.get(i));
         }
     }

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 public class GeoShapeFieldIndexingQuery implements IndexingTypeHandler {
-    public static final int documentPartitions = 10;
+    public static final int documentPartitions = 1;
     private DataCreation dataCreation = DataCreation.getInstance();
     @Autowired
     private RepoGeoShapeField repoGeoShapeField;

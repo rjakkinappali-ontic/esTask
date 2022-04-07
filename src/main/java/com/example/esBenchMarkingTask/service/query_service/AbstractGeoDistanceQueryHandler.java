@@ -13,30 +13,15 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
-import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Service that is used to handle Geo_Distance query for indexed of the type GeoPointDoc
- */
-@Service
-public class GeoDistanceQueryHandler implements  QueryHandler{
-
+public abstract class AbstractGeoDistanceQueryHandler implements QueryHandler{
     public static final String hostAndPort = "localhost:9200";
-    public static final String geoPointsIndex = "testing1geopointstrial";
-    public static final int radiusOfSearch = 20;
+    public static final int radiusOfSearch = 2000;
 
-    /**
-     * <ul>
-     *     <li>This method handle a query and search for all GeoPoints in the "testing1geopoint index that are in a circle of radius of 20Km from a location provided in the JSONObject Location</li>
-     *     <li>This throws IOException because of the search function</li>
-     * </ul>
-     * @param query
-     * @throws IOException
-     */
     @Override
     public void handleQuery(JSONObject query) throws IOException {
         JSONArray locationArray = query.getJSONArray("Location");
@@ -51,7 +36,7 @@ public class GeoDistanceQueryHandler implements  QueryHandler{
         gdqb.distance(radiusOfSearch, DistanceUnit.KILOMETERS);
         searchSourceBuilder.query(gdqb);
         SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices(geoPointsIndex);
+        searchRequest.indices(query.getString("index"));
         searchRequest.source(searchSourceBuilder);
         ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo(hostAndPort).build();
         RestHighLevelClient client = RestClients.create(clientConfiguration).rest();
@@ -64,7 +49,5 @@ public class GeoDistanceQueryHandler implements  QueryHandler{
     }
 
     @Override
-    public QueryType getQueryingType() {
-        return QueryType.GEO_DISTANCE;
-    }
+    public abstract QueryType getQueryingType();
 }

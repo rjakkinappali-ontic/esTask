@@ -22,6 +22,7 @@ import java.util.List;
 @Service
 public class GeoShapeQueryIndexingHandler implements IndexingTypeHandler {
 
+    public static final int documentPartitions = 1;
     private DataCreation dataCreation = DataCreation.getInstance();
     @Autowired
     private RepoGeoShapeQuery repoGeoShapeQuery;
@@ -33,7 +34,7 @@ public class GeoShapeQueryIndexingHandler implements IndexingTypeHandler {
     @SuppressWarnings("unchecked")
     public void indexDocs() {
         List<List<? extends ModelWithGeoPointLocation>> fullGeoPointDocumentList = dataCreation.getGeneratedGeoPointDocs();
-        for(int i=0;i<10;i++){
+        for(int i = 0; i< documentPartitions; i++){
             repoGeoShapeQuery.saveAll((List<GeoShapeQueryDoc>) fullGeoPointDocumentList.get(i));
         }
     }
