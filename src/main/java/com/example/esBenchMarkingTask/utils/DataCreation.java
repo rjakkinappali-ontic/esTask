@@ -1,9 +1,12 @@
 package com.example.esBenchMarkingTask.utils;
 
 import com.example.esBenchMarkingTask.model.GeoPointDoc;
+import com.example.esBenchMarkingTask.model.GeoShapeFieldDoc;
 import com.example.esBenchMarkingTask.model.ModelWithGeoPointLocation;
 import com.example.esBenchMarkingTask.model.ModelWithGeoShapeLocation;
 import org.elasticsearch.common.geo.GeoPoint;
+import org.elasticsearch.common.geo.GeoShapeType;
+import org.janusgraph.core.attribute.Geoshape;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +55,7 @@ public class DataCreation {
      * This is the constructor used to initialize generated Docs
      */
     private DataCreation() {
-        this.generatedGeoPointDocs = RandomDocsGenerator();
+        RandomDocsGenerator();
     }
 
     /**
@@ -62,19 +65,26 @@ public class DataCreation {
      *     <li>generateCoordinates - Used to generate the location</li>
      *     <li>CalculateTilds</li>
      * </ul>
-     * @return generalList
      */
-    private List<? extends ModelWithGeoPointLocation> RandomDocsGenerator() {
-        List<ModelWithGeoPointLocation> generalList = new ArrayList<>();
+    private void RandomDocsGenerator() {
+        List<ModelWithGeoPointLocation> generalGeoPointList = new ArrayList<>();
+        List<ModelWithGeoShapeLocation> generalGeoShapeList = new ArrayList<>();
         for(int i=0;i<docCount;i++){
-            ModelWithGeoPointLocation model = new GeoPointDoc();
-            model.setId(String.format("%d", i));
+            ModelWithGeoPointLocation modelGeoPointDoc = new GeoPointDoc();
+            ModelWithGeoShapeLocation modelGeoShapeDoc = new GeoShapeFieldDoc();
+            modelGeoPointDoc.setId(String.format("%d", i));
+            modelGeoShapeDoc.setId(String.format("%d", i));
             List<Double> coordinates = AuxiliaryFunction.generateCoordinates();
             GeoPoint geoPoint = new GeoPoint(coordinates.get(0), coordinates.get(1));
-            model.setLocation(geoPoint);
-            model.setTileIds(AuxiliaryFunction.calculateTileIds(coordinates.get(0), coordinates.get(1)));
-            generalList.add(model);
+            modelGeoPointDoc.setLocation(geoPoint);
+            Geoshape geoShape = Geoshape.point(coordinates.get(0), coordinates.get(1));
+            List<String> tileIds = AuxiliaryFunction.calculateTileIds(coordinates.get(0), coordinates.get(1));
+            modelGeoPointDoc.setTileIds(tileIds);
+            modelGeoShapeDoc.setTileIds(tileIds);
+            generalGeoPointList.add(modelGeoPointDoc);
+            generalGeoShapeList.add(modelGeoShapeDoc);
         }
-        return generalList;
+        this.generatedGeoPointDocs = generalGeoPointList;
+        this.generatedGeoShapeDocs = generalGeoShapeList;
     }
 }

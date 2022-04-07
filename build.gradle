@@ -22,6 +22,8 @@ dependencies {
 	//es stuff
 	implementation group: 'org.locationtech.spatial4j', name: 'spatial4j', version: '0.8'
 	implementation group: 'org.locationtech.jts', name: 'jts-core', version: '1.18.2'
+	implementation group: 'org.janusgraph', name: 'janusgraph-core', version: '0.6.1'
+
 
 	//utils
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
